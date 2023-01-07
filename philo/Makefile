@@ -1,0 +1,20 @@
+NAME = philo
+SRC = src/main.c src/parse_args.c src/utils.c src/execution.c
+OBJS = $(SRCS:.c=.o)
+FLAGS = -pthread -Wall -Wextra -Werror
+DEBUG_THREAD = -fsanitize=thread -g
+DEBUG_MEMORY = -fsanitize=address
+CLANG = clang
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CLANG) $(FLAGS) $(DEBUG_THREAD) $(SRC) -o $(NAME) $(OBJS)
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
