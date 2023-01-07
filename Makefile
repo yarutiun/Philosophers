@@ -10,6 +10,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CLANG) $(FLAGS) $(DEBUG_THREAD) $(SRC) -o $(NAME) $(OBJS)
+	rm -rf philo.dSYM
 
 clean:
 	rm -f $(OBJS)

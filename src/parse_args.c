@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 17:50:22 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/04 14:40:07 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/07 14:53:39 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int parse(data_t *philo, int argc, char **argv)
     assign_forks_and_philo(philo);
     assign_philo_threads(philo);
     return(1);
-}
+} //
 
 //assigns forks as mutexes into a struct, return 1 if there was a problem initializing a mutex, 0 if everything was correct
 int assign_forks_and_philo(data_t *philo)

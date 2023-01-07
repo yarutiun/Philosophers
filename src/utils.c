@@ -65,22 +65,21 @@ void sleep_eating(data_t *philo)
 	while(philo->dead != 1)
 	{
 		if(get_diff(get_time_in_ms(), time_from_fall_sleep) >= philo->time_to_eat)
-		printf("\n %lld\n", get_diff(get_time_in_ms(), time_from_fall_sleep));
 			break;
-		sleep(50);
+		usleep(50);
 	}
-	return ;
+	// return ;
 }
 
 void sleep_sleeping(data_t *philo)
 {
-	int time_from_fall_sleep;
+	long long int time_from_fall_sleep;
 	time_from_fall_sleep = get_time_in_ms();
 	while(philo->dead != 1)
 	{
 		if(get_diff(get_time_in_ms(), time_from_fall_sleep) >= philo->time_to_sleep)
 			break;
-		sleep(50);
+		usleep(50);
 	}
 	return ;
 }
