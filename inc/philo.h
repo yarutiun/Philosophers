@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 10:39:51 by yarutiun          #+#    #+#             */
-/*   Updated: 2022/12/20 13:59:41 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/08 13:28:43 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct data_s
     int             dead;
     pthread_mutex_t for_death_checker;
     pthread_mutex_t print_msg;
+    pthread_mutex_t another_msg;
     pthread_mutex_t forks[200];
     philo_t         philosopher[200];
 } data_t;

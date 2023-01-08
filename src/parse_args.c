@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 17:50:22 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/07 14:53:39 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/08 16:36:36 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int parse(data_t *philo, int argc, char **argv)
 //assigns forks as mutexes into a struct, return 1 if there was a problem initializing a mutex, 0 if everything was correct
 int assign_forks_and_philo(data_t *philo)
 {
-    int i = philo->number_philo -1;
+    int i = philo->number_philo - 1;
     while(i >= 0)
     {
     if (pthread_mutex_init(&philo->forks[i], NULL))
@@ -53,6 +53,7 @@ int assign_forks_and_philo(data_t *philo)
     i--;
     }
     pthread_mutex_init(&philo->print_msg, NULL);
+    pthread_mutex_init(&philo->another_msg, NULL);
     pthread_mutex_init(&philo->for_death_checker, NULL);
     return(0);
 }
@@ -63,13 +64,20 @@ int assign_philo_threads(data_t *philo)
     i = 0;
     while(i <= philo->number_philo)
     {
-        philo->philosopher[i].index_of_philo = i+1;
-        philo->philosopher[i].left_fork_id = i+1;
+        philo->philosopher[i].index_of_philo = i;
+        philo->philosopher[i].left_fork_id = i;
         philo->philosopher[i].t_last_meal = 0;
-        philo->philosopher[i].right_fork_id = (i + 1) % philo->number_philo;
+        philo->philosopher[i].right_fork_id = i + 1;
         philo->philosopher[i].rules = philo;
         philo->philosopher[i].times_ate = 0;
-        ++i;
+        i++;
     }
+        philo->philosopher[i].index_of_philo = i;
+        philo->philosopher[i].left_fork_id = i;
+        philo->philosopher[i].t_last_meal = 0;
+        philo->philosopher[i].right_fork_id = 0;
+        philo->philosopher[i].rules = philo;
+        philo->philosopher[i].times_ate = 0;
+    
     return(0);
 }

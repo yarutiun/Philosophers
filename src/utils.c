@@ -45,11 +45,11 @@ void print_action(data_t *philo, int id, char *msg)
 {
 	if(!philo->dead)
 	{
-		pthread_mutex_lock(&philo->print_msg);
+		pthread_mutex_lock(&philo->another_msg);
 		printf("%lld ", get_time_in_ms() - philo->beggining_of_simulation);
 		printf("%i ", id);
 		printf("%s\n", msg);
-		pthread_mutex_unlock(&philo->print_msg);
+		pthread_mutex_unlock(&philo->another_msg);
 	}
 }
 
