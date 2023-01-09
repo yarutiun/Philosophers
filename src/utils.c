@@ -29,7 +29,7 @@ int	ft_atoi(const char *str)
 }
 
 //function returns the time of the day since 00:00:00, January 1, 1970 in milliseconds
-time_t	get_time_in_ms(void)
+long long	get_time_in_ms(void)
 {
 	struct timeval	tv;
 
@@ -43,14 +43,20 @@ time_t	get_time_in_ms(void)
 
 void print_action(data_t *philo, int id, char *msg)
 {
-	pthread_mutex_lock(&philo->another_msg);
-	if(!philo->dead)
+	// pthread_mutex_lock(&philo->another_msg);
+	pthread_mutex_lock(&philo->data_dog);
+	if(philo->dead == 1)
 	{
+		pthread_mutex_unlock(&philo->data_dog);
+		return ;
+	}
+	pthread_mutex_unlock(&philo->data_dog);
 		printf("%lld ", get_time_in_ms() - philo->beggining_of_simulation);
 		printf("%i ", id);
 		printf("%s", msg);
-	}
-	pthread_mutex_unlock(&philo->another_msg);
+	
+	// pthread_mutex_unlock(&philo->data_dog);
+	// pthread_mutex_unlock(&philo->another_msg);
 }
 
 long long int get_diff(long long int now, long long int prev)
@@ -62,12 +68,19 @@ void sleep_eating(data_t *philo)
 {
 	long long int time_from_fall_sleep;
 	time_from_fall_sleep = get_time_in_ms();
+
+
+	pthread_mutex_lock(&philo->data_dog);
 	while(philo->dead != 1)
 	{
+		pthread_mutex_unlock(&philo->data_dog);
 		if(get_diff(get_time_in_ms(), time_from_fall_sleep) >= philo->time_to_eat)
-			break;
+		{
+			return ;
+		}
 		usleep(50);
 	}
+	pthread_mutex_unlock(&philo->data_dog);
 }
 
 void sleep_sleeping(data_t *philo)

@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 10:39:51 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/09 15:02:32 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/09 20:49:20 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct data_s
     int             time_to_eat;
     int             time_to_sleep;
     int             num_of_eats;
+    int             philos_done_eating;
     long long int   beggining_of_simulation;
     int             dead;
     pthread_mutex_t for_death_checker;
@@ -63,6 +64,8 @@ typedef struct data_s
     pthread_mutex_t another_msg;
     pthread_mutex_t smth;
     pthread_mutex_t data_dog;
+    pthread_mutex_t omg;
+    pthread_mutex_t protect_food;
     pthread_mutex_t forks[200];
     philo_t         philosopher[200];
 } data_t;
@@ -84,7 +87,7 @@ int finish(philo_t *philo, data_t *data);
 
 //   __________------utils------___________   //
 int	ft_atoi(const char *str);
-time_t	get_time_in_ms(void);
+long long	get_time_in_ms(void);
 long long int get_diff(long long int now, long long int prev);
 void print_action(data_t *philo, int id, char *msg);
 void sleep_eating(data_t *philo);

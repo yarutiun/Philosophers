@@ -9,9 +9,9 @@ CLANG = clang
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CLANG) $(FLAGS) $(DEBUG_THREAD) $(SRC) -o $(NAME) $(OBJS)
+	$(CLANG) $(FLAGS) $(SRC) -o $(NAME) $(OBJS)
 	rm -rf philo.dSYM
-
+# $(DEBUG_THREAD)
 clean:
 	rm -f $(OBJS)
 
