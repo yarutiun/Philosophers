@@ -36,7 +36,7 @@ time_t	get_time_in_ms(void)
 	if(gettimeofday(&tv, NULL) == -1)
 	{
 		printf("Time is just an illusion... Something went wrong!");
-		exit(EXIT_FAILURE);
+		return(0);
 	}
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
@@ -48,7 +48,7 @@ void print_action(data_t *philo, int id, char *msg)
 		pthread_mutex_lock(&philo->another_msg);
 		printf("%lld ", get_time_in_ms() - philo->beggining_of_simulation);
 		printf("%i ", id);
-		printf("%s\n", msg);
+		printf("%s", msg);
 		pthread_mutex_unlock(&philo->another_msg);
 	}
 }

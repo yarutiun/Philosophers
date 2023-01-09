@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 10:39:51 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/08 13:28:43 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:53:29 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ typedef struct philo_s
 } philo_t;
 
 
+//Inside philo routine 
+//After philo->times_ate == data->num_of_eats
+//end the thread 
+
+//Death check
+//While(allthephilo[i])
+// get_diff(get_time_in_ms(), philo[i].t_last_meal) >= data->time_to_die
+// 
+
+// data->dead = 1 == mutex
+
+// inside philo before printing check if data->dead == 1
+// Exit philo (end thread)
+
+
+
 //dead = 0 if none of philosophers are dead, 1 if someone died
 typedef struct data_s
 {
@@ -41,11 +57,11 @@ typedef struct data_s
     int             time_to_sleep;
     int             num_of_eats;
     long long int   beggining_of_simulation;
-    int             already_eated;
     int             dead;
     pthread_mutex_t for_death_checker;
     pthread_mutex_t print_msg;
     pthread_mutex_t another_msg;
+    pthread_mutex_t smth;
     pthread_mutex_t forks[200];
     philo_t         philosopher[200];
 } data_t;
