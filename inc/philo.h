@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 10:39:51 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/09 14:53:29 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:02:32 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct data_s
     pthread_mutex_t print_msg;
     pthread_mutex_t another_msg;
     pthread_mutex_t smth;
+    pthread_mutex_t data_dog;
     pthread_mutex_t forks[200];
     philo_t         philosopher[200];
 } data_t;

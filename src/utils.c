@@ -43,14 +43,14 @@ time_t	get_time_in_ms(void)
 
 void print_action(data_t *philo, int id, char *msg)
 {
+	pthread_mutex_lock(&philo->another_msg);
 	if(!philo->dead)
 	{
-		pthread_mutex_lock(&philo->another_msg);
 		printf("%lld ", get_time_in_ms() - philo->beggining_of_simulation);
 		printf("%i ", id);
 		printf("%s", msg);
-		pthread_mutex_unlock(&philo->another_msg);
 	}
+	pthread_mutex_unlock(&philo->another_msg);
 }
 
 long long int get_diff(long long int now, long long int prev)
@@ -68,7 +68,6 @@ void sleep_eating(data_t *philo)
 			break;
 		usleep(50);
 	}
-	// return ;
 }
 
 void sleep_sleeping(data_t *philo)

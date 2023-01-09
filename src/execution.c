@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 14:27:52 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/09 15:35:16 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:17:25 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ void *do_routine(void *philo1)
     while(info->dead != 1)
     {
         eating(philo);
-        if(philo->times_ate == info->num_of_eats)
-            break;
-        // function to eat and assign new valuje to amount of eats
+        // function to eat and assign new value to amount of eats
         if(info->dead == 1)
             break;
         print_action(info, philo->index_of_philo, "is sleeping\n");
@@ -91,31 +89,25 @@ int death_checker(data_t *data)
     philo_t *philo;
     philo = data->philosopher;
     int i;
-    //philo[200]
-    //philo[0].last_meal
-    //philo[i] 
+    i = 0;
     pthread_mutex_lock(&data->smth);
-
-    while(data->dead != 1) //(data->already_eated != data->num_of_eats) || 
+    while(data->dead != 1 || philo[i].times_ate != data->num_of_eats) //(data->already_eated != data->num_of_eats) || 
     {
         i = 0;
-        while(i <= data->number_philo || philo->times_ate == data->num_of_eats)
+        while(i <= data->number_philo)
         {
         if(get_diff(get_time_in_ms(), philo[i].t_last_meal) >= data->time_to_die)
         {
-            printf("            %lld          ", philo[i].t_last_meal);
             print_action(data, i, "died");
             pthread_mutex_lock(&data->for_death_checker);
             data->dead = 1;
+            break;
         }
-        // if (philo[i].times_ate == data->num_of_eats)
-        // {
-        //     pthread_mutex_unlock(&data->for_death_checker);            
-	    //     break ;
-        // }
         i++;
         usleep(50);
         }
+        // printf("           %i           \n", philo[i].times_ate);
+        pthread_mutex_lock(&data->smth);
         if (data->dead)
         {
             pthread_mutex_unlock(&data->for_death_checker);            
@@ -129,15 +121,20 @@ int death_checker(data_t *data)
 int finish(philo_t *philo, data_t *data)
 {
     int i = 0;
-    while (i < data->number_philo) //for 3 philo
+    while (i < data->number_philo)
     {
         pthread_join(philo[i].thread_id, NULL);
         i++;
     }
-    while (i < data->number_philo) //for 3 philo
+    while (i < data->number_philo)
     {
         pthread_mutex_destroy(&data->forks[i]);
         i++;
     }
+    pthread_mutex_destroy(&data->print_msg);
+    pthread_mutex_destroy(&data->another_msg);
+    pthread_mutex_destroy(&data->smth);
+    pthread_mutex_destroy(&data->for_death_checker);
+    pthread_mutex_destroy(&data->data_dog);
     return(0);
 }

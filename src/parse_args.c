@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 17:50:22 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/09 11:50:20 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:11:36 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //function pushes arguments from input to a struct, returns 1 if only 4 arguments, 1 if 5 args, 0 if less or more than needed
 int parse(data_t *philo, int argc, char **argv)
 {
-    philo->dead = 0; //nobody dead yet)
+    philo->dead = 0; //nobody dead yet)      3 days into debugging, the fucking curse of undying
     if(argc == 2 && argv[1][0] == 'H' && argv[1][1] == 'e' && argv[1][2] == 'l' && argv[1][3] == 'p')
     {
         printf("Program takes theese arguments:\nnumber_of_philosophers, time_to_die, time_to_eat, time_to_sleep, [number_of_times_each_philosopher_must_eat] (last argument is optional)\n");
@@ -56,6 +56,7 @@ int assign_forks_and_philo(data_t *philo)
     pthread_mutex_init(&philo->another_msg, NULL);
     pthread_mutex_init(&philo->smth, NULL);
     pthread_mutex_init(&philo->for_death_checker, NULL);
+    pthread_mutex_init(&philo->data_dog, NULL);
     return(0);
 }
 
