@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 14:27:52 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/10 20:38:18 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/10 21:39:57 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,8 @@ int	execu(t_data *data)
 	philo = data->philosopher;
 	i = 0;
 	data->beggining_of_simulation = get_time_in_ms();
-	pthread_mutex_lock(&data->protect_philo);
-	if (data->number_philo == 1)
-	{
-		pthread_mutex_unlock(&data->protect_philo);
-		pthread_create(&(philo[0].thread_id), NULL, one_case, &(philo[0]));
-		pthread_join(philo[0].thread_id, NULL);
+	if (for_one(data, philo) == 0)
 		return (0);
-	}
-	pthread_mutex_unlock(&data->protect_philo);
 	pthread_mutex_lock(&data->smth);
 	while (++i < data->number_philo)
 	{
@@ -40,9 +33,7 @@ int	execu(t_data *data)
 	i = 0;
 	while (i < data->number_philo && data->number_philo != 1)
 	{
-		if (pthread_create(&philo[i].thread_id, NULL, \
-		do_routine, &philo[i]) != 0)
-			return (1);
+		pthread_create(&philo[i].thread_id, NULL, do_routine, &philo[i]);
 		i++;
 	}
 	death_checker(data);
@@ -64,9 +55,8 @@ void	*do_routine(void *philo1)
 	{
 		pthread_mutex_unlock(&info->data_dog);
 		if (eating(philo) == 1)
-			return(0);
+			return (0);
 		print_action(info, philo->index_of_philo, "is sleeping\n");
-	
 		sleep_sleeping(info);
 		if (for_norme_checker(philo) == 0)
 			return (0);
@@ -83,41 +73,23 @@ int	eating(t_philo *philo)
 
 	data = philo->rules;
 	pthread_mutex_lock(&(data->forks[philo->left_fork_id]));
-	pthread_mutex_lock(&data->data_dog);
-	if(data->dead == 1)
-	{
-		pthread_mutex_unlock(&data->data_dog);
-		pthread_mutex_unlock(&(data->forks[philo->left_fork_id]));
-		return(1);
-	}
-	pthread_mutex_unlock(&data->data_dog);
+	if (ultra_death(data, philo) == 1)
+		return (1);
 	pthread_mutex_lock(&data->another_msg);
-	printf("%lld %i took a left fork\n", \
-	(get_time_in_ms() - data->beggining_of_simulation), \
-	philo->index_of_philo + 1);
+	printf("%lld %i took a left fork\n", (get_time_in_ms() \
+	- data->beggining_of_simulation), philo->index_of_philo + 1);
 	pthread_mutex_unlock(&data->another_msg);
 	pthread_mutex_lock(&(data->forks[philo->right_fork_id]));
-	pthread_mutex_lock(&data->data_dog);
-	if(data->dead == 1)
-	{
-		pthread_mutex_unlock(&data->data_dog);
-		pthread_mutex_unlock(&(data->forks[philo->right_fork_id]));
-		pthread_mutex_unlock(&(data->forks[philo->left_fork_id]));
-		return(1);
-	}
+	if (ultra_super_death(data, philo) == 1)
+		return (1);
 	pthread_mutex_lock(&data->another_msg);
-	pthread_mutex_unlock(&data->data_dog);
 	printf("%lld %i took a right fork\n", \
 	(get_time_in_ms() - data->beggining_of_simulation), \
 	philo->index_of_philo + 1);
 	pthread_mutex_unlock(&data->another_msg);
 	print_action(data, philo->index_of_philo, "is eating\n");
 	sleep_eating(data);
-	pthread_mutex_lock(&data->data_dog);
-	(philo->times_ate)++;
-	pthread_mutex_unlock(&data->data_dog);
-	pthread_mutex_unlock(&(data->forks[philo->left_fork_id]));
-	pthread_mutex_unlock(&(data->forks[philo->right_fork_id]));
+	i_am_sry_future_self(data, philo);
 	pthread_mutex_lock(&data->smth);
 	philo->t_last_meal = get_time_in_ms();
 	pthread_mutex_unlock(&data->smth);
@@ -126,11 +98,6 @@ int	eating(t_philo *philo)
 
 int	death_checker(t_data *data)
 {
-	// int		i;
-	// t_philo	*philo;
-
-	// philo = data->philosopher;
-	// i = 0;
 	while (1)
 	{
 		pthread_mutex_lock(&data->omg);
@@ -174,5 +141,6 @@ int	finish(t_philo *philo, t_data *data)
 	pthread_mutex_destroy(&data->smth);
 	pthread_mutex_destroy(&data->for_death_checker);
 	pthread_mutex_destroy(&data->data_dog);
+	pthread_mutex_destroy(&data->protect_philo);
 	return (0);
 }

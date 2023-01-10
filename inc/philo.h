@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 10:39:51 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/10 14:28:57 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/10 21:21:31 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,8 @@ void			sleep_sleeping(t_data *philo);
 void			*one_case(void *info);
 void			death_loop(t_data *data);
 int				for_norme_checker(t_philo *philo);
+int				for_one(t_data *data, t_philo *philo);
+int				ultra_death(t_data *data, t_philo *philo);
+int				ultra_super_death(t_data *data, t_philo *philo);
+void			i_am_sry_future_self(t_data *data, t_philo *philo);
 #endif

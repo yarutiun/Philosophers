@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 13:13:41 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/10 16:31:48 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/10 20:52:05 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,13 @@ void	sleep_eating(t_data *philo)
 	time_from_fall_sleep = get_time_in_ms();
 	while (1)
 	{
-		
 		if (get_diff(get_time_in_ms(), time_from_fall_sleep) \
 		>= philo->time_to_eat)
 		{
 			return ;
 		}
 		pthread_mutex_lock(&philo->data_dog);
-		if(philo->dead == 1)
+		if (philo->dead == 1)
 		{
 			pthread_mutex_unlock(&philo->data_dog);
 			return ;
@@ -92,7 +91,6 @@ void	sleep_eating(t_data *philo)
 		pthread_mutex_unlock(&philo->data_dog);
 		usleep(50);
 	}
-
 }
 
 void	sleep_sleeping(t_data *philo)
@@ -100,19 +98,16 @@ void	sleep_sleeping(t_data *philo)
 	long long int	time_from_fall_sleep;
 
 	time_from_fall_sleep = get_time_in_ms();
-	
 	while (1)
 	{
-		
-		// pthread_mutex_unlock(&philo->data_dog);
 		if (get_diff(get_time_in_ms(), time_from_fall_sleep) \
 		>= philo->time_to_sleep)
 			break ;
 		pthread_mutex_lock(&philo->data_dog);
-		if(philo->dead == 1)
+		if (philo->dead == 1)
 		{
 			pthread_mutex_unlock(&philo->data_dog);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&philo->data_dog);
 		usleep(50);
