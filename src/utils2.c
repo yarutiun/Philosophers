@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 13:13:38 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/10 16:41:16 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/10 20:29:46 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ void	*one_case(void *info)
 	printf("%lld %i took a left fork\n", \
 	(get_time_in_ms() - data->beggining_of_simulation), \
 	philo->index_of_philo + 1);
-	pthread_mutex_lock(&(data->forks[philo->right_fork_id]));
-	while (data->dead == 0)
-	{
-		usleep(50);
-	}
+	pthread_mutex_unlock(&(data->forks[philo->left_fork_id]));
+	usleep(data->time_to_die * 1000);
+	print_action(data, 0, "died");
 	return (0);
 }
 
@@ -52,7 +50,7 @@ void	death_loop(t_data *data)
 		get_diff(get_time_in_ms(), philo[i].t_last_meal) \
 		> data->time_to_die)
 		{
-			print_action(data, i, "died");
+			print_action(data, i, "died\n");
 			pthread_mutex_lock(&data->data_dog);
 			data->dead = 1;
 			pthread_mutex_unlock(&data->data_dog);
