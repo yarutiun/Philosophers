@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 10:39:51 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/09 20:49:20 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/10 12:39:12 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,5 @@ long long int get_diff(long long int now, long long int prev);
 void print_action(data_t *philo, int id, char *msg);
 void sleep_eating(data_t *philo);
 void sleep_sleeping(data_t *philo);
+void *one_case(void *info);
 #endif

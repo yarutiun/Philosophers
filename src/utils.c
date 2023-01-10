@@ -43,7 +43,6 @@ long long	get_time_in_ms(void)
 
 void print_action(data_t *philo, int id, char *msg)
 {
-	// pthread_mutex_lock(&philo->another_msg);
 	pthread_mutex_lock(&philo->data_dog);
 	if(philo->dead == 1)
 	{
@@ -51,12 +50,13 @@ void print_action(data_t *philo, int id, char *msg)
 		return ;
 	}
 	pthread_mutex_unlock(&philo->data_dog);
-		printf("%lld ", get_time_in_ms() - philo->beggining_of_simulation);
-		printf("%i ", id);
-		printf("%s", msg);
+	pthread_mutex_lock(&philo->another_msg);
+	printf("%lld ", get_time_in_ms() - philo->beggining_of_simulation);
+	printf("%i ", id+1);
+	printf("%s", msg);
+	pthread_mutex_unlock(&philo->another_msg);
 	
 	// pthread_mutex_unlock(&philo->data_dog);
-	// pthread_mutex_unlock(&philo->another_msg);
 }
 
 long long int get_diff(long long int now, long long int prev)
