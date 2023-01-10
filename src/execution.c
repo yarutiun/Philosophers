@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 14:27:52 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/10 14:15:14 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:41:32 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,8 @@ void	*do_routine(void *philo1)
 		pthread_mutex_lock(&info->data_dog);
 		pthread_mutex_unlock(&info->data_dog);
 		sleep_sleeping(info);
-		pthread_mutex_lock(&info->protect_food);
 		if (for_norme_checker(philo) == 0)
 			return (0);
-		pthread_mutex_unlock(&info->protect_food);
 		print_action(info, philo->index_of_philo, "is thinking\n");
 	}
 	pthread_mutex_unlock(&info->data_dog);
@@ -93,11 +91,11 @@ int	eating(t_philo *philo)
 
 int	death_checker(t_data *data)
 {
-	int		i;
-	t_philo	*philo;
+	// int		i;
+	// t_philo	*philo;
 
-	philo = data->philosopher;
-	i = 0;
+	// philo = data->philosopher;
+	// i = 0;
 	while (1)
 	{
 		pthread_mutex_lock(&data->omg);

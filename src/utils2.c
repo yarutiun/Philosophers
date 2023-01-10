@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 13:13:38 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/10 14:33:57 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:41:16 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	death_loop(t_data *data)
 
 	philo = data->philosopher;
 	i = 0;
+	// t_last_meal
+	
 	while (i <= data->number_philo)
 	{
 		pthread_mutex_lock(&data->smth);
@@ -68,6 +70,7 @@ int	for_norme_checker(t_philo *philo)
 	t_data	*info;
 
 	info = philo->rules;
+	pthread_mutex_lock(&info->protect_food);
 	if (philo->times_ate == info->num_of_eats)
 	{
 		pthread_mutex_unlock(&info->protect_food);
@@ -76,5 +79,6 @@ int	for_norme_checker(t_philo *philo)
 		pthread_mutex_unlock(&info->omg);
 		return (0);
 	}
+	pthread_mutex_unlock(&info->protect_food);
 	return (1);
 }
