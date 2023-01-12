@@ -1,5 +1,5 @@
 NAME = philo
-SRC = src/main.c src/parse_args.c src/utils.c src/execution.c src/utils2.c src/utils3.c
+SRC = src/main.c src/parse_args.c src/utils.c src/execution.c src/additionals.c src/utils3.c
 OBJS = $(SRCS:.c=.o)
 FLAGS = -pthread -Wall -Wextra -Werror
 DEBUG_THREAD = -fsanitize=thread -g
