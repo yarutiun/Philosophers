@@ -1,0 +1,1 @@
+This one of 42 projects teaching basic multi-threading and Thread Synchronization by solving the "Dining philosopher problem".
