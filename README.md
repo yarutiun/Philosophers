@@ -24,3 +24,4 @@ They have to eat, sleep, think (obviously) and repeat so they don't die.
 
 Run ```Make```
 
+Than, run ```./philosopher Help``` and follow instructions!
