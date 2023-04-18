@@ -12,7 +12,7 @@ We use mutexes here as synchronization.
 
 ### Well, here we are discovering a classic CS problem: Dijkstra dining philosophers problem!
 
-![Dining Philosopher](https://upload.wikimedia.org/wikipedia/commons/7/7b/An_illustration_of_the_dining_philosophers_problem.png)
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/An_illustration_of_the_dining_philosophers_problem.png" width = 300 height = 300>
 
 The problem itself is that there are n philosophers sitting at the table.
 
