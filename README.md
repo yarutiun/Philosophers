@@ -1,4 +1,4 @@
-# Philosopher
+# Philosopher (Thinking... 🧐)
 
 ## What is this?
 
