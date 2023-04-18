@@ -10,7 +10,9 @@ We use mutexes here as synchronization.
 
 ## What is the assignment?
 
-### Well, here we are discovering a classic CS problem: Dijkstra dining philosophers problem! 
+### Well, here we are discovering a classic CS problem: Dijkstra dining philosophers problem!
+
+![Dining Philosopher](https://upload.wikimedia.org/wikipedia/commons/7/7b/An_illustration_of_the_dining_philosophers_problem.png)
 
 The problem itself is that there are n philosophers sitting at the table.
 
