@@ -6,7 +6,7 @@
 /*   By: yarutiun <yarutiun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 10:39:51 by yarutiun          #+#    #+#             */
-/*   Updated: 2023/01/10 21:21:31 by yarutiun         ###   ########.fr       */
+/*   Updated: 2023/10/20 11:00:04 by yarutiun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct data_s
 	pthread_mutex_t	protect_food;
 	pthread_mutex_t	protect_philo;
 	pthread_mutex_t	forks[200];
-	t_philo			philosopher[200];
+	t_philo			philosopher[202];
 }	t_data;
 
 //   __________------parser------___________   //
